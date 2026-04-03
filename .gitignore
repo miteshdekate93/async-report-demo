@@ -1,0 +1,20 @@
+# Build output
+bin/
+obj/
+*.user
+
+# .NET
+*.suo
+.vs/
+.idea/
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# macOS
+.DS_Store
+
+# Secrets — never commit real values
+# appsettings.Production.json

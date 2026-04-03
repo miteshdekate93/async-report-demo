@@ -1,0 +1,232 @@
+/* ── Card container ──────────────────────────────────────────────────────── */
+
+/* The white card that holds all the report generator UI */
+.report-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px 48px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card heading */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+/* ── Connection banner ───────────────────────────────────────────────────── */
+
+/* Yellow warning shown briefly while SignalR is still connecting */
+.status-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Pulsing yellow dot next to the "Connecting…" text */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.status-connecting {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+/* ── Controls (idle state) ───────────────────────────────────────────────── */
+
+/* Vertical stack holding the select and button */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Label above the select */
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Report type dropdown */
+.select {
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background: #ffffff;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+
+/* Base style shared by all buttons */
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Primary CTA — the "Generate Report" button */
+.btn-primary {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+/* Grey secondary button — "Generate Another" / "Try Again" */
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+/* Green download button shown when the report is ready */
+.btn-download {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  background: #059669;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-download:hover {
+  background: #047857;
+}
+
+.btn-download:active {
+  transform: scale(0.98);
+}
+
+/* Disabled state for the primary button while SignalR connects */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Loading state ───────────────────────────────────────────────────────── */
+
+/* Centers the spinner and text while the report is being generated */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  text-align: center;
+}
+
+/* Animated ring spinner */
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e0e7ff;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+
+.loading-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.loading-subtext {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Result states (ready / failed) ─────────────────────────────────────── */
+
+/* Shared layout for the success and failure result cards */
+.result-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0 8px;
+  text-align: center;
+}
+
+/* Large emoji-style icon at the top of the result */
+.result-icon {
+  font-size: 2.5rem;
+  color: #059669; /* green tick */
+}
+
+.result-icon-error {
+  color: #dc2626; /* red cross */
+}
+
+.result-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.result-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+
+/* Spinner rotation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Status dot pulse */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}

@@ -1,0 +1,78 @@
+<!-- Card wrapper — always visible regardless of state -->
+<div class="report-card">
+
+  <h2 class="card-title">Report Generator</h2>
+
+  <!-- Connection warning — shown briefly while SignalR is still establishing the WebSocket -->
+  @if (!isConnected()) {
+    <div class="status-banner status-connecting">
+      <span class="status-dot"></span>
+      Connecting to server…
+    </div>
+  }
+
+  <!-- ── IDLE ─────────────────────────────────────────────────────────────── -->
+  @if (state() === 'idle') {
+    <div class="controls">
+
+      <label for="report-type" class="label">Report type</label>
+      <select
+        id="report-type"
+        class="select"
+        (change)="onTypeChange($event)">
+        @for (type of reportTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+        }
+      </select>
+
+      <button
+        class="btn btn-primary"
+        [disabled]="!isConnected()"
+        (click)="onGenerateClick()">
+        Generate Report
+      </button>
+
+    </div>
+  }
+
+  <!-- ── LOADING ───────────────────────────────────────────────────────────── -->
+  <!-- role="status" + aria-live let screen readers announce the loading state -->
+  @if (state() === 'loading') {
+    <div class="loading-state" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p class="loading-text">Generating your <strong>{{ selectedType() }}</strong> report…</p>
+      <p class="loading-subtext">You will be notified here as soon as it is ready.</p>
+    </div>
+  }
+
+  <!-- ── READY ─────────────────────────────────────────────────────────────── -->
+  @if (state() === 'ready') {
+    <div class="result-state result-success">
+      <div class="result-icon" aria-hidden="true">✓</div>
+      <p class="result-title">Your report is ready!</p>
+      <p class="result-subtitle">{{ selectedType() }} report generated successfully.</p>
+      <a
+        [href]="downloadUrl()"
+        download
+        class="btn btn-download">
+        Download Report
+      </a>
+      <button class="btn btn-secondary" (click)="onReset()">
+        Generate Another
+      </button>
+    </div>
+  }
+
+  <!-- ── FAILED ────────────────────────────────────────────────────────────── -->
+  @if (state() === 'failed') {
+    <div class="result-state result-error">
+      <div class="result-icon result-icon-error" aria-hidden="true">✗</div>
+      <p class="result-title">Report generation failed</p>
+      <p class="result-subtitle">Something went wrong on the server. Please try again.</p>
+      <button class="btn btn-secondary" (click)="onReset()">
+        Try Again
+      </button>
+    </div>
+  }
+
+</div>
